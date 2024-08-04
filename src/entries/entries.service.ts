@@ -12,11 +12,11 @@ export class EntriesService {
   }
 
   findAll() {
-    return `This action returns all entries`;
+    return this.prisma.entry.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} entry`;
+    return this.prisma.entry.findUnique({ where: { id } });
   }
 
   update(id: number, updateEntryDto: UpdateEntryDto) {
