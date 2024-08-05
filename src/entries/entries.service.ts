@@ -28,8 +28,8 @@ export class EntriesService {
     }
   }
 
-  findAll() {
-    return this.prisma.entry.findMany();
+  async findAll() {
+    return await this.prisma.entry.findMany();
   }
 
   async findOne(id: number) {
