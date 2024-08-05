@@ -7,6 +7,8 @@ import {
   Param,
   Put,
   Delete,
+  ParseIntPipe,
+  ValidationPipe,
 } from '@nestjs/common';
 import { EntriesService } from './entries.service';
 import { CreateEntryDto } from './dto/create-entry.dto';
@@ -17,7 +19,7 @@ export class EntriesController {
   constructor(private readonly entriesService: EntriesService) {}
 
   @Post()
-  create(@Body() createEntryDto: CreateEntryDto) {
+  create(@Body(ValidationPipe) createEntryDto: CreateEntryDto) {
     return this.entriesService.create(createEntryDto);
   }
 
@@ -27,22 +29,28 @@ export class EntriesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.entriesService.findOne(+id);
   }
 
   @Patch(':id')
-  updatePatch(@Param('id') id: string, @Body() updateEntryDto: UpdateEntryDto) {
+  updatePatch(
+    @Param('id', ParseIntPipe) id: string,
+    @Body() updateEntryDto: UpdateEntryDto,
+  ) {
     return this.entriesService.update(+id, updateEntryDto);
   }
 
   @Put(':id')
-  updatePut(@Param('id') id: string, @Body() updateEntryDto: UpdateEntryDto) {
+  updatePut(
+    @Param('id', ParseIntPipe) id: string,
+    @Body(ValidationPipe) updateEntryDto: UpdateEntryDto,
+  ) {
     return this.entriesService.update(+id, updateEntryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: string) {
     return this.entriesService.remove(+id);
   }
 }
