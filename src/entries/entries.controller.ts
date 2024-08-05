@@ -36,7 +36,7 @@ export class EntriesController {
   @Patch(':id')
   updatePatch(
     @Param('id', ParseIntPipe) id: string,
-    @Body() updateEntryDto: UpdateEntryDto,
+    @Body(ValidationPipe) updateEntryDto: UpdateEntryDto,
   ) {
     return this.entriesService.update(+id, updateEntryDto);
   }
