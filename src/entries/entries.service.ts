@@ -58,7 +58,14 @@ export class EntriesService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} entry`;
+  async remove(id: number) {
+    try {
+      return await this.prisma.entry.delete({ where: { id } });
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new NotFoundException(`No entry with id "${id}" was found`);
+      }
+      throw new BadRequestException('Something went wrong');
+    }
   }
 }
