@@ -39,8 +39,23 @@ export class EntriesService {
     return entry;
   }
 
-  update(id: number, updateEntryDto: UpdateEntryDto) {
-    return `This action updates a #${id} entry`;
+  async update(id: number, updateEntryDto: UpdateEntryDto) {
+    try {
+      return await this.prisma.entry.update({
+        where: { id },
+        data: updateEntryDto,
+      });
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientValidationError) {
+        // TODO: cleanup this message, this is a little 'hacky'
+        const createErrorMessage = err.message.split('\n');
+        throw new BadRequestException(
+          createErrorMessage[createErrorMessage.length - 1],
+        );
+      }
+      // if error is not from a client validation issue
+      throw new BadRequestException(err.message);
+    }
   }
 
   remove(id: number) {

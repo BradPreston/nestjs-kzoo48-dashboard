@@ -5,6 +5,7 @@ import {
   Body,
   Patch,
   Param,
+  Put,
   Delete,
 } from '@nestjs/common';
 import { EntriesService } from './entries.service';
@@ -31,7 +32,12 @@ export class EntriesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEntryDto: UpdateEntryDto) {
+  updatePatch(@Param('id') id: string, @Body() updateEntryDto: UpdateEntryDto) {
+    return this.entriesService.update(+id, updateEntryDto);
+  }
+
+  @Put(':id')
+  updatePut(@Param('id') id: string, @Body() updateEntryDto: UpdateEntryDto) {
     return this.entriesService.update(+id, updateEntryDto);
   }
 
