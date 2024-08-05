@@ -35,7 +35,7 @@ export class EntriesService {
   async findOne(id: number) {
     const entry = await this.prisma.entry.findUnique({ where: { id } });
     if (!entry)
-      throw new NotFoundException(`No user with id "${id}" was found`);
+      throw new NotFoundException(`No entry with id "${id}" was found`);
     return entry;
   }
 
