@@ -2,43 +2,66 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsEmail,
-  IsNotEmpty,
+  IsOptional,
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
 
 export class CreateEntryDto {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The first name of the team leader',
+    type: 'string',
+    example: 'John',
+  })
   @IsString()
-  @IsNotEmpty()
   firstName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The last name of the team leader',
+    type: 'string',
+    example: 'Doe',
+  })
   @IsString()
-  @IsNotEmpty()
   lastName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The phone number of the team leader',
+    type: 'string',
+    example: '(123) 456-7890',
+  })
   @IsPhoneNumber()
-  @IsNotEmpty()
   phone: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The email of the team leader',
+    type: 'string',
+    example: 'john.doe@example.com',
+  })
   @IsEmail()
-  @IsNotEmpty()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The category of the team',
+    type: 'string',
+    example: 'Amatuer',
+  })
   @IsString()
-  @IsNotEmpty()
   category: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of the team',
+    type: 'string',
+    example: "John's Awesome Team",
+  })
   @IsString()
-  @IsNotEmpty()
   teamName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Emails of other team members',
+    type: 'string[]',
+    example: ['janet.michael@example.com', 'peter.donovan@domain.com'],
+  })
   @IsArray()
+  @IsOptional()
   additionalEmails: string[];
 }
