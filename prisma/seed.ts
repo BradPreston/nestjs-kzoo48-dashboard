@@ -6,6 +6,20 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  const category1 = await prisma.category.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      name: 'Amatuer',
+    },
+  });
+  const category2 = await prisma.category.upsert({
+    where: { id: 2 },
+    update: {},
+    create: {
+      name: 'Professional',
+    },
+  });
   // create two dummy articles
   const entry1 = await prisma.entry.upsert({
     where: { id: 1 },
@@ -15,7 +29,7 @@ async function main() {
       lastName: 'Doe',
       phone: '(123) 456-7890',
       email: 'john.doe@example.com',
-      category: 'Amatuer',
+      categoryId: 1,
       teamName: "John's Awesome Team",
       additionalEmails: [],
     },
@@ -29,7 +43,7 @@ async function main() {
       lastName: 'Miller',
       phone: '(987) 654-3210',
       email: 'marry.miller@domain.com',
-      category: 'Professional',
+      categoryId: 2,
       teamName: 'Marry and the Heartbreakers',
       additionalEmails: [
         'peter.hamption@example.com',
@@ -38,6 +52,12 @@ async function main() {
     },
   });
 
+  console.log('Categories');
+  console.log('------------------------------------------');
+  console.log({ category1, category2 });
+  console.log('\n');
+  console.log('Entries');
+  console.log('------------------------------------------');
   console.log({ entry1, entry2 });
 }
 
