@@ -20,7 +20,7 @@ async function main() {
       name: 'Professional',
     },
   });
-  // create two dummy articles
+  // create two dummy entries
   const entry1 = await prisma.entry.upsert({
     where: { id: 1 },
     update: {},
