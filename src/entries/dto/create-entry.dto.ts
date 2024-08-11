@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsEmail,
+  IsInt,
   IsOptional,
   IsPhoneNumber,
   IsString,
@@ -45,8 +46,8 @@ export class CreateEntryDto {
     type: 'string',
     example: 'Amatuer',
   })
-  @IsString()
-  category: string;
+  @IsInt()
+  categoryId: number;
 
   @ApiProperty({
     description: 'The name of the team',

@@ -1,6 +1,12 @@
 import { CreateEntryDto } from './create-entry.dto';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsArray, IsEmail, IsPhoneNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsInt,
+  IsPhoneNumber,
+  IsString,
+} from 'class-validator';
 
 export class UpdateEntryDto extends PartialType(CreateEntryDto) {
   @ApiProperty({
@@ -40,8 +46,8 @@ export class UpdateEntryDto extends PartialType(CreateEntryDto) {
     type: 'string',
     example: 'Amatuer',
   })
-  @IsString()
-  category: string;
+  @IsInt()
+  categoryId: number;
 
   @ApiProperty({
     description: 'The name of the team',
