@@ -52,6 +52,18 @@ async function main() {
     },
   });
 
+  const volunteer1 = await prisma.volunteer.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      firstName: 'Betty',
+      lastName: 'Crocker',
+      phone: '(567) 123-3456',
+      email: 'betty.crocker@email.com',
+      role: 'Advertising',
+    },
+  });
+
   console.log('Categories');
   console.log('------------------------------------------');
   console.log({ category1, category2 });
@@ -59,6 +71,10 @@ async function main() {
   console.log('Entries');
   console.log('------------------------------------------');
   console.log({ entry1, entry2 });
+  console.log('\n');
+  console.log('Volunteers');
+  console.log('------------------------------------------');
+  console.log({ volunteer1 });
 }
 
 // execute the main function
