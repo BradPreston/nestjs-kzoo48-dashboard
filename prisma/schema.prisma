@@ -28,7 +28,7 @@ model Entry {
 }
 
 model Category {
-  id        Int @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   entry     Entry?
   name      String
   createdAt DateTime  @default(now())
