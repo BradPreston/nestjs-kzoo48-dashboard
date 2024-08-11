@@ -19,9 +19,18 @@ model Entry {
   lastName          String   
   phone             String
   email             String
-  category          String    
+  category          Category  @relation(fields: [categoryId], references: [id])
+  categoryId        Int       @unique    
   teamName          String    @unique
   additionalEmails  String[]  @default([])
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
+}
+
+model Category {
+  id        Int @id @default(autoincrement())
+  entry     Entry?
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
