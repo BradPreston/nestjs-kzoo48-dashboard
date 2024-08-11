@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateVolunteerDto } from './dto/create-volunteer.dto';
 import { UpdateVolunteerDto } from './dto/update-volunteer.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -15,8 +15,11 @@ export class VolunteersService {
     return await this.prisma.volunteer.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} volunteer`;
+  async findOne(id: number) {
+    const volunteer = await this.prisma.volunteer.findUnique({ where: { id } });
+    if (!volunteer)
+      throw new NotFoundException(`No volunteer with id "${id}" was found`);
+    return volunteer;
   }
 
   update(id: number, updateVolunteerDto: UpdateVolunteerDto) {
