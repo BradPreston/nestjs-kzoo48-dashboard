@@ -7,13 +7,22 @@ import { CreateVolunteerDto } from './dto/create-volunteer.dto';
 import { UpdateVolunteerDto } from './dto/update-volunteer.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
+import { clientValidationErrorMessage } from 'utils/error-handling/error-message';
 
 @Injectable()
 export class VolunteersService {
   constructor(private prisma: PrismaService) {}
 
-  create(createVolunteerDto: CreateVolunteerDto) {
-    return 'This action adds a new volunteer';
+  async create(createVolunteerDto: CreateVolunteerDto) {
+    try {
+      return await this.prisma.volunteer.create({ data: createVolunteerDto });
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientValidationError) {
+        clientValidationErrorMessage(err);
+      }
+      // if error is not from a validation issue
+      throw new BadRequestException(err.message);
+    }
   }
 
   async findAll() {
