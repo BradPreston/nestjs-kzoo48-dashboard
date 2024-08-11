@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ValidationPipe,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { VolunteersService } from './volunteers.service';
 import { CreateVolunteerDto } from './dto/create-volunteer.dto';
 import { UpdateVolunteerDto } from './dto/update-volunteer.dto';
@@ -8,7 +18,7 @@ export class VolunteersController {
   constructor(private readonly volunteersService: VolunteersService) {}
 
   @Post()
-  create(@Body() createVolunteerDto: CreateVolunteerDto) {
+  create(@Body(ValidationPipe) createVolunteerDto: CreateVolunteerDto) {
     return this.volunteersService.create(createVolunteerDto);
   }
 
@@ -18,17 +28,20 @@ export class VolunteersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.volunteersService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVolunteerDto: UpdateVolunteerDto) {
+  update(
+    @Param('id', ParseIntPipe) id: string,
+    @Body(ValidationPipe) updateVolunteerDto: UpdateVolunteerDto,
+  ) {
     return this.volunteersService.update(+id, updateVolunteerDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: string) {
     return this.volunteersService.remove(+id);
   }
 }
