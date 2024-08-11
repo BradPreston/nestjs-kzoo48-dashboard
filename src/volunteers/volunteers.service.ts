@@ -11,8 +11,8 @@ export class VolunteersService {
     return 'This action adds a new volunteer';
   }
 
-  findAll() {
-    return `This action returns all volunteers`;
+  async findAll() {
+    return await this.prisma.volunteer.findMany();
   }
 
   findOne(id: number) {
