@@ -25,7 +25,7 @@ export class UpdateVolunteerDto extends PartialType(CreateVolunteerDto) {
     type: 'string',
     example: '(567) 123-3456',
   })
-  @IsPhoneNumber()
+  @IsPhoneNumber('US')
   phone: string;
 
   @ApiProperty({
