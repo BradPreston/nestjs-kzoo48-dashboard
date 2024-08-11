@@ -36,8 +36,19 @@ export class VolunteersService {
     return volunteer;
   }
 
-  update(id: number, updateVolunteerDto: UpdateVolunteerDto) {
-    return `This action updates a #${id} volunteer`;
+  async update(id: number, updateVolunteerDto: UpdateVolunteerDto) {
+    try {
+      return this.prisma.volunteer.update({
+        where: { id },
+        data: updateVolunteerDto,
+      });
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientValidationError) {
+        clientValidationErrorMessage(err);
+      }
+      // if error is not from client validation issue
+      throw new BadRequestException(err.message);
+    }
   }
 
   async remove(id: number) {
