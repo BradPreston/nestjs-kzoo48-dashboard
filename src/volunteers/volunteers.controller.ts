@@ -8,6 +8,7 @@ import {
   Delete,
   ValidationPipe,
   ParseIntPipe,
+  Put,
 } from '@nestjs/common';
 import { VolunteersService } from './volunteers.service';
 import { CreateVolunteerDto } from './dto/create-volunteer.dto';
@@ -33,7 +34,15 @@ export class VolunteersController {
   }
 
   @Patch(':id')
-  update(
+  updatePatch(
+    @Param('id', ParseIntPipe) id: string,
+    @Body(ValidationPipe) updateVolunteerDto: UpdateVolunteerDto,
+  ) {
+    return this.volunteersService.update(+id, updateVolunteerDto);
+  }
+
+  @Put(':id')
+  updatePut(
     @Param('id', ParseIntPipe) id: string,
     @Body(ValidationPipe) updateVolunteerDto: UpdateVolunteerDto,
   ) {
