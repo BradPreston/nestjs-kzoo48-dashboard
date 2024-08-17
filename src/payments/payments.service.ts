@@ -38,6 +38,12 @@ export class PaymentsService {
             paid: paid,
             orderAmount: amount,
             receiptUrl: receipt_url,
+            entry: {
+              update: {
+                paid: paid,
+                paymentId: id,
+              },
+            },
           },
           create: {
             eventId: id,
@@ -46,6 +52,15 @@ export class PaymentsService {
             paid: paid,
             orderAmount: amount,
             receiptUrl: receipt_url,
+            // TODO: update the entry even when creating a new payment
+            entry: {
+              connect: {
+                email: billing_details.email,
+              },
+            },
+          },
+          include: {
+            entry: true,
           },
         });
       }
