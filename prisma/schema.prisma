@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -18,11 +19,14 @@ model Entry {
   firstName         String   
   lastName          String   
   phone             String
-  email             String
+  email             String    @unique()
   category          Category  @relation(fields: [categoryId], references: [id])
   categoryId        Int       @unique    
   teamName          String    @unique
   additionalEmails  String[]  @default([])
+  payment           Payment?  
+  paymentId         String?   @unique()
+  paid              Boolean   @default(false)
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
@@ -48,12 +52,14 @@ model Volunteer {
 
 model Payment {
   id          Int       @id @default(autoincrement())
-  eventId     String
+  eventId     String    @unique()
   entryName   String
   entryEmail  String    @unique()
   paid        Boolean
   orderAmount Int
   receiptUrl  String
+  entry       Entry?    @relation(fields: [entryId], references: [id])
+  entryId     Int?      @unique()
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
