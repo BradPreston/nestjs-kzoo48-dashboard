@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
+  IsBoolean,
   IsEmail,
   IsInt,
   IsOptional,
@@ -48,6 +49,21 @@ export class CreateEntryDto {
   })
   @IsInt()
   categoryId: number;
+
+  @ApiProperty({
+    description: 'The payment id from the Stripe event',
+    type: 'string',
+    example: 'ch_jE95NbLwWQEhnDv91EEIHO1U',
+  })
+  @IsString()
+  paymentId: string;
+
+  @ApiProperty({
+    description: 'True if the payment was successful, false otherwise',
+    type: 'boolean',
+  })
+  @IsBoolean()
+  paid: boolean;
 
   @ApiProperty({
     description: 'The name of the team',
