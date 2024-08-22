@@ -6,6 +6,7 @@ import {
   IsInt,
   IsPhoneNumber,
   IsString,
+  IsBoolean,
 } from 'class-validator';
 
 export class UpdateEntryDto extends PartialType(CreateEntryDto) {
@@ -48,6 +49,21 @@ export class UpdateEntryDto extends PartialType(CreateEntryDto) {
   })
   @IsInt()
   categoryId: number;
+
+  @ApiProperty({
+    description: 'The payment id from the Stripe event',
+    type: 'string',
+    example: 'ch_jE95NbLwWQEhnDv91EEIHO1U',
+  })
+  @IsString()
+  paymentId: string;
+
+  @ApiProperty({
+    description: 'True if the payment was successful, false otherwise',
+    type: 'boolean',
+  })
+  @IsBoolean()
+  paid: boolean;
 
   @ApiProperty({
     description: 'The name of the team',
