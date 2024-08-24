@@ -9,6 +9,7 @@ import {
   newEntry,
   updateEntry,
 } from '../../test/mocks/entry.data';
+import { NotFoundException } from '@nestjs/common';
 
 describe('EntriesService', () => {
   let service: EntriesService;
@@ -86,6 +87,17 @@ describe('EntriesService', () => {
       const result = await service.findOne(1);
       expect(result.id).toBe(1);
     });
+
+    it('should throw a NotFoundException if no entry is found', async () => {
+      jest
+        .spyOn(service, 'findOne')
+        .mockRejectedValue(
+          new NotFoundException('No entry with id "2" was found'),
+        );
+      await expect(service.findOne(2)).rejects.toThrow(
+        new NotFoundException('No entry with id "2" was found'),
+      );
+    });
   });
 
   describe('update', () => {
@@ -128,6 +140,17 @@ describe('EntriesService', () => {
       expect(service.findAll).toHaveBeenCalled();
       expect(remainingEntries).not.toContain(result);
       expect(remainingEntries).toHaveLength(1);
+    });
+
+    it('should throw a NotFoundException if no entry is found', async () => {
+      jest
+        .spyOn(service, 'remove')
+        .mockRejectedValue(
+          new NotFoundException('No entry with id "2" was found'),
+        );
+      await expect(service.remove(2)).rejects.toThrow(
+        new NotFoundException('No entry with id "2" was found'),
+      );
     });
   });
 });
