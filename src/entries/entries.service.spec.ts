@@ -43,7 +43,7 @@ describe('EntriesService', () => {
   });
 
   describe('findAll', () => {
-    it('should have a length of 0', async () => {
+    it('should have a length of 0 with no entries', async () => {
       jest.spyOn(service, 'findAll').mockResolvedValue([]);
       const result = await service.findAll();
       expect(result).toHaveLength(0);
