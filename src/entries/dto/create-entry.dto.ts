@@ -31,7 +31,7 @@ export class CreateEntryDto {
     type: 'string',
     example: '(123) 456-7890',
   })
-  @IsPhoneNumber()
+  @IsPhoneNumber('US')
   phone: string;
 
   @ApiProperty({
@@ -56,7 +56,8 @@ export class CreateEntryDto {
     example: 'ch_jE95NbLwWQEhnDv91EEIHO1U',
   })
   @IsString()
-  paymentId: string;
+  @IsOptional()
+  paymentId: string | null;
 
   @ApiProperty({
     description: 'True if the payment was successful, false otherwise',
@@ -71,7 +72,7 @@ export class CreateEntryDto {
     example: "John's Awesome Team",
   })
   @IsString()
-  teamName: string;
+  teamName: string | null;
 
   @ApiProperty({
     description: 'Emails of other team members',

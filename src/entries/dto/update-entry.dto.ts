@@ -7,6 +7,7 @@ import {
   IsPhoneNumber,
   IsString,
   IsBoolean,
+  IsOptional,
 } from 'class-validator';
 
 export class UpdateEntryDto extends PartialType(CreateEntryDto) {
@@ -31,7 +32,7 @@ export class UpdateEntryDto extends PartialType(CreateEntryDto) {
     type: 'string',
     example: '(123) 456-7890',
   })
-  @IsPhoneNumber()
+  @IsPhoneNumber('US')
   phone: string;
 
   @ApiProperty({
@@ -56,7 +57,8 @@ export class UpdateEntryDto extends PartialType(CreateEntryDto) {
     example: 'ch_jE95NbLwWQEhnDv91EEIHO1U',
   })
   @IsString()
-  paymentId: string;
+  @IsOptional()
+  paymentId: string | null;
 
   @ApiProperty({
     description: 'True if the payment was successful, false otherwise',
