@@ -19,15 +19,21 @@ export const mockEntry: Entry = {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const badEntry: CreateEntryDto = {
+export const createEntryBad: CreateEntryDto = {
   lastName: 'Doe',
-  phone: '1234567890',
+  phone: '7184567890',
   email: 'john.doe@email.com',
   categoryId: 1,
   teamName: "John's test team",
   additionalEmails: [],
   paid: false,
   paymentId: null,
+};
+
+export const updateEntryBad: UpdateEntryDto = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  categoryId: '1',
 };
 
 export const mockEntries: Entry[] = [
@@ -79,7 +85,7 @@ export const mockUpdatedEntry: Entry = {
 export const newEntry: CreateEntryDto = {
   firstName: 'John',
   lastName: 'Doe',
-  phone: '1234567890',
+  phone: '7184567890',
   email: 'john.doe@email.com',
   categoryId: 1,
   teamName: "John's test team",
@@ -91,7 +97,7 @@ export const newEntry: CreateEntryDto = {
 export const updateEntry: UpdateEntryDto = {
   firstName: 'John updated',
   lastName: 'Doe updated',
-  phone: '1234567890',
+  phone: '7184567890',
   email: 'john.doe@email.com',
   categoryId: 1,
   teamName: "John's test team",
