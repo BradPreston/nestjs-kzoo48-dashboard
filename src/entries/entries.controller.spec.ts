@@ -14,6 +14,7 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 describe('EntriesController', () => {
   let controller: EntriesController;
+  let service: EntriesService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,6 +24,7 @@ describe('EntriesController', () => {
     }).compile();
 
     controller = module.get<EntriesController>(EntriesController);
+    service = module.get<EntriesService>(EntriesService);
   });
 
   it('should be defined', () => {
@@ -48,38 +50,38 @@ describe('EntriesController', () => {
   });
 
   describe('findAll', () => {
-    beforeEach(async () => {
-      jest
-        .spyOn(controller, 'findAll')
-        .mockImplementation(async () => mockEntries);
-    });
-
     it('finds all entries', async () => {
-      expect(await controller.findAll()).toEqual(mockEntries);
+      jest.spyOn(service, 'findAll').mockResolvedValue(mockEntries);
+      expect(await controller.findAll()).toBe(mockEntries);
     });
 
     it('has a length of two entries', async () => {
+      jest.spyOn(service, 'findAll').mockResolvedValue(mockEntries);
       expect(await controller.findAll()).toHaveLength(2);
     });
 
     it('has an entry with an id of 2', async () => {
+      jest.spyOn(service, 'findAll').mockResolvedValue(mockEntries);
       const results = await controller.findAll();
       expect(results[1].id).toBe(2);
+    });
+
+    it('returns an empty array with no entries found', async () => {
+      jest.spyOn(service, 'findAll').mockResolvedValue([]);
+      expect(await controller.findAll()).toStrictEqual([]);
     });
   });
 
   describe('findOne', () => {
     it('finds one entry by id', async () => {
-      jest
-        .spyOn(controller, 'findOne')
-        .mockImplementation(async () => mockEntry);
+      jest.spyOn(service, 'findOne').mockResolvedValue(mockEntry);
 
       expect(await controller.findOne('1')).toBe(mockEntry);
     });
 
     it('throws a NotFoundException if entry is not found', async () => {
       jest
-        .spyOn(controller, 'findOne')
+        .spyOn(service, 'findOne')
         .mockRejectedValue(
           new NotFoundException('No entry with id "2" was found'),
         );
@@ -92,9 +94,7 @@ describe('EntriesController', () => {
 
   describe('updatePatch', () => {
     it('returns an entry', async () => {
-      jest
-        .spyOn(controller, 'updatePatch')
-        .mockImplementation(async () => mockUpdatedEntry);
+      jest.spyOn(service, 'update').mockResolvedValue(mockUpdatedEntry);
 
       expect(await controller.updatePatch('1', updateEntry)).toEqual(
         mockUpdatedEntry,
@@ -102,9 +102,7 @@ describe('EntriesController', () => {
     });
 
     it('should have different data after update', async () => {
-      jest
-        .spyOn(controller, 'updatePatch')
-        .mockImplementation(async () => mockUpdatedEntry);
+      jest.spyOn(service, 'update').mockResolvedValue(mockUpdatedEntry);
       const result = await controller.updatePatch('1', updateEntry);
 
       expect(result.firstName).not.toEqual(mockEntry.firstName);
@@ -114,9 +112,7 @@ describe('EntriesController', () => {
 
   describe('updatePut', () => {
     it('returns an entry', async () => {
-      jest
-        .spyOn(controller, 'updatePut')
-        .mockImplementation(async () => mockUpdatedEntry);
+      jest.spyOn(service, 'update').mockResolvedValue(mockUpdatedEntry);
 
       expect(await controller.updatePut('1', updateEntry)).toEqual(
         mockUpdatedEntry,
@@ -124,9 +120,7 @@ describe('EntriesController', () => {
     });
 
     it('should have different data after update', async () => {
-      jest
-        .spyOn(controller, 'updatePut')
-        .mockImplementation(async () => mockUpdatedEntry);
+      jest.spyOn(service, 'update').mockResolvedValue(mockUpdatedEntry);
       const result = await controller.updatePut('1', updateEntry);
 
       expect(result.firstName).not.toEqual(mockEntry.firstName);
@@ -136,9 +130,7 @@ describe('EntriesController', () => {
 
   describe('remove', () => {
     it('returns the removed entry', async () => {
-      jest
-        .spyOn(controller, 'remove')
-        .mockImplementation(async () => mockEntry);
+      jest.spyOn(service, 'remove').mockResolvedValue(mockEntry);
       const result = await controller.remove('1');
       expect(result).toBe(mockEntry);
     });
