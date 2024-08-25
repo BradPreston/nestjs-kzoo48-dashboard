@@ -6,26 +6,24 @@ import {
 import { CreateEntryDto } from './dto/create-entry.dto';
 import { UpdateEntryDto } from './dto/update-entry.dto';
 import { PrismaService } from '../../src/prisma/prisma.service';
-import { Prisma } from '@prisma/client';
+import { plainToInstance } from 'class-transformer';
+import { validate } from 'class-validator';
 
 @Injectable()
 export class EntriesService {
   constructor(private prisma: PrismaService) {}
 
   async create(createEntryDto: CreateEntryDto) {
-    try {
-      return await this.prisma.entry.create({ data: createEntryDto });
-    } catch (err) {
-      if (err instanceof Prisma.PrismaClientValidationError) {
-        // TODO: cleanup this message, this is a little 'hacky'
-        const createErrorMessage = err.message.split('\n');
-        throw new BadRequestException(
-          createErrorMessage[createErrorMessage.length - 1],
-        );
-      }
-      // if error is not from a client validation issue
-      throw new BadRequestException(err.message);
+    const createEntryDtoErrors = plainToInstance(
+      CreateEntryDto,
+      createEntryDto,
+    );
+    const dtoErrors = await validate(createEntryDtoErrors);
+    if (dtoErrors.length !== 0) {
+      const dtoError = Object.values(dtoErrors[0].constraints)[0];
+      throw new BadRequestException(dtoError);
     }
+    return await this.prisma.entry.create({ data: createEntryDto });
   }
 
   async findAll() {
@@ -40,22 +38,19 @@ export class EntriesService {
   }
 
   async update(id: number, updateEntryDto: UpdateEntryDto) {
-    try {
-      return await this.prisma.entry.update({
-        where: { id },
-        data: updateEntryDto,
-      });
-    } catch (err) {
-      if (err instanceof Prisma.PrismaClientValidationError) {
-        // TODO: cleanup this message, this is a little 'hacky'
-        const createErrorMessage = err.message.split('\n');
-        throw new BadRequestException(
-          createErrorMessage[createErrorMessage.length - 1],
-        );
-      }
-      // if error is not from a client validation issue
-      throw new BadRequestException(err.message);
+    const updateEntryDtoErrors = plainToInstance(
+      UpdateEntryDto,
+      updateEntryDto,
+    );
+    const dtoErrors = await validate(updateEntryDtoErrors);
+    if (dtoErrors.length !== 0) {
+      const dtoError = Object.values(dtoErrors[0].constraints)[0];
+      throw new BadRequestException(dtoError);
     }
+    return await this.prisma.entry.update({
+      where: { id },
+      data: updateEntryDto,
+    });
   }
 
   async remove(id: number) {
