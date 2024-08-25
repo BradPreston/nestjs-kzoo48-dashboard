@@ -3,13 +3,14 @@ import { EntriesService } from './entries.service';
 import { PrismaService } from '../../src/prisma/prisma.service';
 import { Entry } from '@prisma/client';
 import {
+  createEntryBad,
   mockEntries,
   mockEntry,
   mockUpdatedEntry,
   newEntry,
   updateEntry,
 } from '../../test/mocks/entry.data';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 describe('EntriesService', () => {
   let service: EntriesService;
@@ -27,33 +28,32 @@ describe('EntriesService', () => {
   });
 
   describe('create', () => {
-    let result: Entry;
-
-    beforeEach(async () => {
-      jest.spyOn(service, 'create').mockImplementation(async () => mockEntry);
-      result = await service.create(newEntry);
-    });
-
     it('should return an entry', async () => {
-      expect(result).toEqual(mockEntry);
+      jest.spyOn(service, 'create').mockImplementation(async () => mockEntry);
+      await expect(service.create(newEntry)).resolves.toEqual(mockEntry);
     });
 
     it('should have an id of 1', async () => {
-      expect(result.id).toEqual(1);
+      jest.spyOn(service, 'create').mockImplementation(async () => mockEntry);
+      await expect(service.create(newEntry)).resolves.toHaveProperty('id', 1);
+    });
+
+    it('should throw a BadRequestException', async () => {
+      await expect(service.create(createEntryBad)).rejects.toThrow(
+        new BadRequestException('firstName must be a string'),
+      );
     });
   });
 
   describe('findAll', () => {
     it('should have a length of 0 with no entries', async () => {
       jest.spyOn(service, 'findAll').mockResolvedValue([]);
-      const result = await service.findAll();
-      expect(result).toHaveLength(0);
+      await expect(service.findAll()).resolves.toHaveLength(0);
     });
 
     it('should have a length of 1', async () => {
       jest.spyOn(service, 'findAll').mockResolvedValue([mockEntry]);
-      const result = await service.findAll();
-      expect(result).toHaveLength(1);
+      await expect(service.findAll()).resolves.toHaveLength(1);
     });
 
     it('should contain an entry with an id of 1', async () => {
@@ -64,8 +64,7 @@ describe('EntriesService', () => {
 
     it('should have a length of 2', async () => {
       jest.spyOn(service, 'findAll').mockResolvedValue(mockEntries);
-      const result = await service.findAll();
-      expect(result).toHaveLength(2);
+      await expect(service.findAll()).resolves.toHaveLength(2);
     });
 
     it('should contain an entry with an id of 2', async () => {
