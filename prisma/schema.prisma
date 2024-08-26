@@ -21,7 +21,7 @@ model Entry {
   phone             String
   email             String    @unique()
   category          Category  @relation(fields: [categoryId], references: [id])
-  categoryId        Int
+  categoryId        Int       
   teamName          String    @unique
   additionalEmails  String[]  @default([])
   payment           Payment?  
@@ -33,7 +33,6 @@ model Entry {
 
 model Category {
   id        Int       @id @default(autoincrement())
-  entryId   Int       @unique
   name      String
   entry     Entry[]     
   createdAt DateTime  @default(now())
