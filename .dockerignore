@@ -1,0 +1,8 @@
+# files/directories to be ignored when creating a container
+node_modules
+test
+.gitignore
+.git
+.prettierrc
+Dockerfile
+README.md
