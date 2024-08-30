@@ -33,7 +33,7 @@ model Entry {
 
 model Category {
   id        Int       @id @default(autoincrement())
-  name      String
+  name      String    @unique()
   entry     Entry[]     
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -44,7 +44,7 @@ model Volunteer {
   firstName String   
   lastName  String   
   phone     String
-  email     String
+  email     String    @unique()
   role      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
