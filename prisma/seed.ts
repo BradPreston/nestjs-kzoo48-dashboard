@@ -7,14 +7,14 @@ const prisma = new PrismaClient();
 
 async function main() {
   const category1 = await prisma.category.upsert({
-    where: { id: 1 },
+    where: { name: 'Amatuer' },
     update: {},
     create: {
       name: 'Amatuer',
     },
   });
   const category2 = await prisma.category.upsert({
-    where: { id: 2 },
+    where: { name: 'Professional' },
     update: {},
     create: {
       name: 'Professional',
@@ -22,7 +22,7 @@ async function main() {
   });
   // create two dummy entries
   const entry1 = await prisma.entry.upsert({
-    where: { id: 1 },
+    where: { email: 'john.doe@example.com' },
     update: {},
     create: {
       firstName: 'John',
@@ -36,7 +36,7 @@ async function main() {
   });
 
   const entry2 = await prisma.entry.upsert({
-    where: { id: 2 },
+    where: { email: 'marry.miller@domain.com' },
     update: {},
     create: {
       firstName: 'Mary',
@@ -53,7 +53,7 @@ async function main() {
   });
 
   const volunteer1 = await prisma.volunteer.upsert({
-    where: { id: 1 },
+    where: { email: 'betty.crocker@email.com' },
     update: {},
     create: {
       firstName: 'Betty',
