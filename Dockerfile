@@ -25,8 +25,6 @@ RUN npm run build
 
 # ======== DEV ========
 FROM base AS dev
-# set the work directory
-# WORKDIR /usr/src/app
 # expose the port to access the app
 EXPOSE 3000
 # make the entrypoint script executable
