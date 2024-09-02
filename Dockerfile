@@ -24,15 +24,15 @@ WORKDIR /usr/src/app
 RUN npm run build
 
 # ======== DEV ========
-FROM linter AS dev
+FROM base AS dev
 # set the work directory
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 # expose the port to access the app
 EXPOSE 3000
 # make the entrypoint script executable
-RUN chmod +x /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint-dev.sh
 # execute the entrypoint script
-ENTRYPOINT [ "sh", "/usr/src/app/entrypoint.sh" ]
+ENTRYPOINT [ "sh", "/usr/src/app/entrypoint-dev.sh" ]
 
 # ======== PRODUCTION========
 FROM node:18 AS production
