@@ -8,6 +8,7 @@ import {
   Delete,
   ValidationPipe,
   ParseIntPipe,
+  Put,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -40,7 +41,7 @@ export class CategoriesController {
     return this.categoriesService.update(+id, updateCategoryDto);
   }
 
-  @Patch(':id')
+  @Put(':id')
   updatePut(
     @Param('id', ParseIntPipe) id: string,
     @Body(ValidationPipe) updateCategoryDto: UpdateCategoryDto,
