@@ -64,6 +64,30 @@ async function main() {
     },
   });
 
+  const status1 = await prisma.status.upsert({
+    where: { name: 'active' },
+    update: {},
+    create: {
+      name: 'active',
+    },
+  });
+
+  const status2 = await prisma.status.upsert({
+    where: { name: 'outdated' },
+    update: {},
+    create: {
+      name: 'outdated',
+    },
+  });
+
+  const status3 = await prisma.status.upsert({
+    where: { name: 'archived' },
+    update: {},
+    create: {
+      name: 'archived',
+    },
+  });
+
   console.log('Categories');
   console.log('------------------------------------------');
   console.log({ category1, category2 });
@@ -75,6 +99,9 @@ async function main() {
   console.log('Volunteers');
   console.log('------------------------------------------');
   console.log({ volunteer1 });
+  console.log('Statuses');
+  console.log('------------------------------------------');
+  console.log({ status1, status2, status3 });
 }
 
 // execute the main function
