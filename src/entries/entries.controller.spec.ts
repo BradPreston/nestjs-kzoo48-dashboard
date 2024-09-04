@@ -4,8 +4,9 @@ import { EntriesService } from './entries.service';
 import { PrismaModule } from '../../src/prisma/prisma.module';
 import {
   createEntryBad,
-  mockEntries,
   mockEntry,
+  mockResolvedEntry,
+  mockResolvedEntryArray,
   mockUpdatedEntry,
   newEntry,
   updateEntry,
@@ -51,17 +52,17 @@ describe('EntriesController', () => {
 
   describe('findAll', () => {
     it('finds all entries', async () => {
-      jest.spyOn(service, 'findAll').mockResolvedValue(mockEntries);
-      expect(await controller.findAll()).toBe(mockEntries);
+      jest.spyOn(service, 'findAll').mockResolvedValue(mockResolvedEntryArray);
+      expect(await controller.findAll()).toBe(mockResolvedEntryArray);
     });
 
     it('has a length of two entries', async () => {
-      jest.spyOn(service, 'findAll').mockResolvedValue(mockEntries);
+      jest.spyOn(service, 'findAll').mockResolvedValue(mockResolvedEntryArray);
       expect(await controller.findAll()).toHaveLength(2);
     });
 
     it('has an entry with an id of 2', async () => {
-      jest.spyOn(service, 'findAll').mockResolvedValue(mockEntries);
+      jest.spyOn(service, 'findAll').mockResolvedValue(mockResolvedEntryArray);
       const results = await controller.findAll();
       expect(results[1].id).toBe(2);
     });
@@ -74,9 +75,9 @@ describe('EntriesController', () => {
 
   describe('findOne', () => {
     it('finds one entry by id', async () => {
-      jest.spyOn(service, 'findOne').mockResolvedValue(mockEntry);
+      jest.spyOn(service, 'findOne').mockResolvedValue(mockResolvedEntry);
 
-      expect(await controller.findOne('1')).toBe(mockEntry);
+      expect(await controller.findOne('1')).toBe(mockResolvedEntry);
     });
 
     it('throws a NotFoundException if entry is not found', async () => {

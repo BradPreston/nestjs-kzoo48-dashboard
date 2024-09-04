@@ -9,6 +9,7 @@ import {
   mockCategory,
   mockCategoryUpdated,
   newCategory,
+  mockResolvedCategory,
 } from '../../test/mocks/category.data';
 import { PrismaModule } from '../../src/prisma/prisma.module';
 
@@ -63,12 +64,16 @@ describe('CategoriesController', () => {
     });
 
     it('should have a length of 1', async () => {
-      jest.spyOn(controller, 'findAll').mockResolvedValue([mockCategory]);
+      jest
+        .spyOn(controller, 'findAll')
+        .mockResolvedValue([mockResolvedCategory]);
       expect(await controller.findAll()).toHaveLength(1);
     });
 
     it('should have a category with an id of 1', async () => {
-      jest.spyOn(controller, 'findAll').mockResolvedValue([mockCategory]);
+      jest
+        .spyOn(controller, 'findAll')
+        .mockResolvedValue([mockResolvedCategory]);
       const result = await controller.findAll();
       expect(result[0].id).toBe(1);
     });
@@ -76,12 +81,12 @@ describe('CategoriesController', () => {
 
   describe('findOne', () => {
     it('should return a category', async () => {
-      jest.spyOn(controller, 'findOne').mockResolvedValue(mockCategory);
-      expect(await controller.findOne('1')).toEqual(mockCategory);
+      jest.spyOn(controller, 'findOne').mockResolvedValue(mockResolvedCategory);
+      expect(await controller.findOne('1')).toEqual(mockResolvedCategory);
     });
 
     it('should have an id of 1', async () => {
-      jest.spyOn(controller, 'findOne').mockResolvedValue(mockCategory);
+      jest.spyOn(controller, 'findOne').mockResolvedValue(mockResolvedCategory);
       expect(await controller.findOne('1')).toHaveProperty('id', 1);
     });
 
