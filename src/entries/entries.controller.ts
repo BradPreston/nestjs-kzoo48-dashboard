@@ -8,7 +8,6 @@ import {
   Put,
   Delete,
   ParseIntPipe,
-  ValidationPipe,
 } from '@nestjs/common';
 import { EntriesService } from './entries.service';
 import { CreateEntryDto } from './dto/create-entry.dto';
@@ -19,7 +18,7 @@ export class EntriesController {
   constructor(private readonly entriesService: EntriesService) {}
 
   @Post()
-  create(@Body(ValidationPipe) createEntryDto: CreateEntryDto) {
+  create(@Body() createEntryDto: CreateEntryDto) {
     return this.entriesService.create(createEntryDto);
   }
 
@@ -36,7 +35,7 @@ export class EntriesController {
   @Patch(':id')
   updatePatch(
     @Param('id', ParseIntPipe) id: string,
-    @Body(ValidationPipe) updateEntryDto: UpdateEntryDto,
+    @Body() updateEntryDto: UpdateEntryDto,
   ) {
     return this.entriesService.update(+id, updateEntryDto);
   }
@@ -44,7 +43,7 @@ export class EntriesController {
   @Put(':id')
   updatePut(
     @Param('id', ParseIntPipe) id: string,
-    @Body(ValidationPipe) updateEntryDto: UpdateEntryDto,
+    @Body() updateEntryDto: UpdateEntryDto,
   ) {
     return this.entriesService.update(+id, updateEntryDto);
   }

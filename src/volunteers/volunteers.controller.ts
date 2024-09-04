@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  ValidationPipe,
   ParseIntPipe,
   Put,
 } from '@nestjs/common';
@@ -19,7 +18,7 @@ export class VolunteersController {
   constructor(private readonly volunteersService: VolunteersService) {}
 
   @Post()
-  create(@Body(ValidationPipe) createVolunteerDto: CreateVolunteerDto) {
+  create(@Body() createVolunteerDto: CreateVolunteerDto) {
     return this.volunteersService.create(createVolunteerDto);
   }
 
@@ -36,7 +35,7 @@ export class VolunteersController {
   @Patch(':id')
   updatePatch(
     @Param('id', ParseIntPipe) id: string,
-    @Body(ValidationPipe) updateVolunteerDto: UpdateVolunteerDto,
+    @Body() updateVolunteerDto: UpdateVolunteerDto,
   ) {
     return this.volunteersService.update(+id, updateVolunteerDto);
   }
@@ -44,7 +43,7 @@ export class VolunteersController {
   @Put(':id')
   updatePut(
     @Param('id', ParseIntPipe) id: string,
-    @Body(ValidationPipe) updateVolunteerDto: UpdateVolunteerDto,
+    @Body() updateVolunteerDto: UpdateVolunteerDto,
   ) {
     return this.volunteersService.update(+id, updateVolunteerDto);
   }
