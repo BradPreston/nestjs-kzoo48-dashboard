@@ -27,6 +27,8 @@ model Entry {
   payment           Payment?  
   paymentId         String?   @unique()
   paid              Boolean   @default(false)
+  status            Status    @relation(fields: [statusId], references: [id])
+  statusId          Int       @default(1)
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
@@ -35,6 +37,8 @@ model Category {
   id        Int       @id @default(autoincrement())
   name      String    @unique()
   entry     Entry[]     
+  status    Status    @relation(fields: [statusId], references: [id])
+  statusId  Int       @default(1)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
@@ -46,6 +50,8 @@ model Volunteer {
   phone     String
   email     String    @unique()
   role      String
+  status    Status    @relation(fields: [statusId], references: [id])
+  statusId  Int       @default(1)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
@@ -60,13 +66,19 @@ model Payment {
   receiptUrl  String
   entry       Entry?    @relation(fields: [entryId], references: [id])
   entryId     Int?      @unique()
+  status      Status    @relation(fields: [statusId], references: [id])
+  statusId    Int       @default(1)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
 
 model Status {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  entry       Entry[]
+  category    Category[]
+  volunteer   Volunteer[]
+  payment     Payment[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
