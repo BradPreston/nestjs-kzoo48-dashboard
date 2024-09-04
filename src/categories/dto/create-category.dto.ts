@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 
 export class CreateCategoryDto {
   @ApiProperty({
@@ -9,4 +9,12 @@ export class CreateCategoryDto {
   })
   @IsString()
   name: string;
+
+  @ApiProperty({
+    description: 'The id of the status',
+    type: 'number',
+    example: 1,
+  })
+  @IsInt()
+  statusId: number;
 }

@@ -82,4 +82,12 @@ export class CreateEntryDto {
   @IsArray()
   @IsOptional()
   additionalEmails: string[];
+
+  @ApiProperty({
+    description: 'The id of the status',
+    type: 'number',
+    example: 1,
+  })
+  @IsInt()
+  statusId: number;
 }

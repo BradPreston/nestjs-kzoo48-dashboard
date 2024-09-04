@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEmail, IsInt, IsPhoneNumber, IsString } from 'class-validator';
 
 export class CreateVolunteerDto {
   @ApiProperty({
@@ -41,4 +41,12 @@ export class CreateVolunteerDto {
   })
   @IsString()
   role: string;
+
+  @ApiProperty({
+    description: 'The id of the status',
+    type: 'number',
+    example: 1,
+  })
+  @IsInt()
+  statusId: number;
 }

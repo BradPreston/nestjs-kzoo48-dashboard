@@ -82,4 +82,12 @@ export class UpdateEntryDto extends PartialType(CreateEntryDto) {
   })
   @IsArray()
   additionalEmails: string[];
+
+  @ApiProperty({
+    description: 'The id of the status',
+    type: 'number',
+    example: 1,
+  })
+  @IsInt()
+  statusId: number;
 }

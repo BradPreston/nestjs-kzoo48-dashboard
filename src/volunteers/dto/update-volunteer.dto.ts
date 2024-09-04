@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateVolunteerDto } from './create-volunteer.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEmail, IsInt, IsPhoneNumber, IsString } from 'class-validator';
 
 export class UpdateVolunteerDto extends PartialType(CreateVolunteerDto) {
   @ApiProperty({
@@ -43,4 +43,12 @@ export class UpdateVolunteerDto extends PartialType(CreateVolunteerDto) {
   })
   @IsString()
   role: string;
+
+  @ApiProperty({
+    description: 'The id of the status',
+    type: 'number',
+    example: 1,
+  })
+  @IsInt()
+  statusId: number;
 }
