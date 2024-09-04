@@ -6,9 +6,17 @@ import { EntriesModule } from './entries/entries.module';
 import { VolunteersModule } from './volunteers/volunteers.module';
 import { PaymentsModule } from './payments/payment.module';
 import { CategoriesModule } from './categories/categories.module';
+import { StatusesModule } from './statuses/statuses.module';
 
 @Module({
-  imports: [PrismaModule, EntriesModule, VolunteersModule, PaymentsModule, CategoriesModule],
+  imports: [
+    PrismaModule,
+    EntriesModule,
+    VolunteersModule,
+    PaymentsModule,
+    CategoriesModule,
+    StatusesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
