@@ -77,8 +77,7 @@ describe('EntriesService', () => {
   describe('findOne', () => {
     it('should find an entry', async () => {
       jest.spyOn(service, 'findOne').mockResolvedValue(mockEntry);
-      const result = await service.findOne(1);
-      expect(result).toEqual(mockEntry);
+      expect(await service.findOne(1)).toEqual(mockEntry);
     });
 
     it('should have an id of 1', async () => {
@@ -122,8 +121,7 @@ describe('EntriesService', () => {
   describe('remove', () => {
     it('returns the removed entry', async () => {
       jest.spyOn(service, 'remove').mockImplementation(async () => mockEntry);
-      const result = await service.remove(1);
-      expect(result).toBe(mockEntry);
+      expect(await service.remove(1)).toBe(mockEntry);
     });
 
     it('has a length of 1 after removal', async () => {
