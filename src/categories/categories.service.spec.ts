@@ -7,6 +7,7 @@ import {
   goodUpdateCategoryMock,
   mockCategory,
   mockCategoryUpdated,
+  mockResolvedCategory,
   newCategory,
 } from '../../test/mocks/category.data';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
@@ -60,12 +61,12 @@ describe('CategoriesService', () => {
     });
 
     it('should have a length of 1', async () => {
-      jest.spyOn(service, 'findAll').mockResolvedValue([mockCategory]);
+      jest.spyOn(service, 'findAll').mockResolvedValue([mockResolvedCategory]);
       expect(await service.findAll()).toHaveLength(1);
     });
 
     it('should have a category with an id of 1', async () => {
-      jest.spyOn(service, 'findAll').mockResolvedValue([mockCategory]);
+      jest.spyOn(service, 'findAll').mockResolvedValue([mockResolvedCategory]);
       const result = await service.findAll();
       expect(result[0].id).toBe(1);
     });
@@ -73,12 +74,12 @@ describe('CategoriesService', () => {
 
   describe('findOne', () => {
     it('should return a category', async () => {
-      jest.spyOn(service, 'findOne').mockResolvedValue(mockCategory);
-      expect(await service.findOne(1)).toEqual(mockCategory);
+      jest.spyOn(service, 'findOne').mockResolvedValue(mockResolvedCategory);
+      expect(await service.findOne(1)).toEqual(mockResolvedCategory);
     });
 
     it('should have an id of 1', async () => {
-      jest.spyOn(service, 'findOne').mockResolvedValue(mockCategory);
+      jest.spyOn(service, 'findOne').mockResolvedValue(mockResolvedCategory);
       expect(await service.findOne(1)).toHaveProperty('id', 1);
     });
 

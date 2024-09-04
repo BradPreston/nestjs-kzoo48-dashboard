@@ -18,6 +18,20 @@ export const badMockCategory = {
   updatedAt: new Date(),
 };
 
+export const mockResolvedCategory = {
+  id: 1,
+  name: 'test',
+  statusId: 1,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  status: {
+    id: 1,
+    name: 'active',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+};
+
 export const newCategory: CreateCategoryDto = {
   name: 'test',
   statusId: 1,
