@@ -5,24 +5,28 @@ import {
 } from '@nestjs/common';
 import { CreateVolunteerDto } from './dto/create-volunteer.dto';
 import { UpdateVolunteerDto } from './dto/update-volunteer.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
-import { clientValidationErrorMessage } from 'utils/error-handling/error-message';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class VolunteersService {
   constructor(private prisma: PrismaService) {}
 
   async create(createVolunteerDto: CreateVolunteerDto) {
-    try {
-      return await this.prisma.volunteer.create({ data: createVolunteerDto });
-    } catch (err) {
-      if (err instanceof Prisma.PrismaClientValidationError) {
-        clientValidationErrorMessage(err);
-      }
-      // if error is not from a validation issue
-      throw new BadRequestException(err.message);
+    const createVolunteerDtoErrors = plainToInstance(
+      CreateVolunteerDto,
+      createVolunteerDto,
+    );
+    const dtoErrors = await validate(createVolunteerDtoErrors);
+    if (dtoErrors.length !== 0) {
+      const dtoError = Object.values(dtoErrors[0].constraints)[0];
+      throw new BadRequestException(dtoError);
     }
+    return await this.prisma.volunteer.create({
+      data: createVolunteerDto,
+    });
   }
 
   async findAll() {
@@ -37,18 +41,19 @@ export class VolunteersService {
   }
 
   async update(id: number, updateVolunteerDto: UpdateVolunteerDto) {
-    try {
-      return this.prisma.volunteer.update({
-        where: { id },
-        data: updateVolunteerDto,
-      });
-    } catch (err) {
-      if (err instanceof Prisma.PrismaClientValidationError) {
-        clientValidationErrorMessage(err);
-      }
-      // if error is not from client validation issue
-      throw new BadRequestException(err.message);
+    const updateVolunteerDtoErrors = plainToInstance(
+      UpdateVolunteerDto,
+      updateVolunteerDto,
+    );
+    const dtoErrors = await validate(updateVolunteerDtoErrors);
+    if (dtoErrors.length !== 0) {
+      const dtoError = Object.values(dtoErrors[0].constraints)[0];
+      throw new BadRequestException(dtoError);
     }
+    return await this.prisma.volunteer.update({
+      where: { id },
+      data: updateVolunteerDto,
+    });
   }
 
   async remove(id: number) {
