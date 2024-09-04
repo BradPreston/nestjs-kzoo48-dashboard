@@ -30,11 +30,18 @@ export class VolunteersService {
   }
 
   async findAll() {
-    return await this.prisma.volunteer.findMany();
+    return await this.prisma.volunteer.findMany({
+      include: {
+        status: true,
+      },
+    });
   }
 
   async findOne(id: number) {
-    const volunteer = await this.prisma.volunteer.findUnique({ where: { id } });
+    const volunteer = await this.prisma.volunteer.findUnique({
+      where: { id },
+      include: { status: true },
+    });
     if (!volunteer)
       throw new NotFoundException(`No volunteer with id "${id}" was found`);
     return volunteer;

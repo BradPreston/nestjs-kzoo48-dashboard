@@ -27,11 +27,18 @@ export class EntriesService {
   }
 
   async findAll() {
-    return await this.prisma.entry.findMany();
+    return await this.prisma.entry.findMany({
+      include: {
+        status: true,
+      },
+    });
   }
 
   async findOne(id: number) {
-    const entry = await this.prisma.entry.findUnique({ where: { id } });
+    const entry = await this.prisma.entry.findUnique({
+      where: { id },
+      include: { status: true },
+    });
     if (!entry)
       throw new NotFoundException(`No entry with id "${id}" was found`);
     return entry;

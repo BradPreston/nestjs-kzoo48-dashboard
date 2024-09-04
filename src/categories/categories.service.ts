@@ -27,12 +27,19 @@ export class CategoriesService {
   }
 
   async findAll() {
-    return await this.prisma.category.findMany();
+    return await this.prisma.category.findMany({
+      include: {
+        status: true,
+      },
+    });
   }
 
   async findOne(id: number) {
     const category = await this.prisma.category.findUnique({
       where: { id },
+      include: {
+        status: true,
+      },
     });
     if (!category)
       throw new NotFoundException(`No category with id "${id}" was found`);
