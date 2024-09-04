@@ -20,7 +20,7 @@ model Entry {
   lastName          String   
   phone             String
   email             String    @unique()
-  category          Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  category          Category  @relation(fields: [categoryId], references: [id])
   categoryId        Int       
   teamName          String    @unique
   additionalEmails  String[]  @default([])
@@ -58,7 +58,7 @@ model Payment {
   paid        Boolean
   orderAmount Int
   receiptUrl  String
-  entry       Entry?    @relation(fields: [entryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  entry       Entry?    @relation(fields: [entryId], references: [id])
   entryId     Int?      @unique()
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
