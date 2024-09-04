@@ -13,6 +13,7 @@ export const mockEntry: Entry = {
   additionalEmails: [],
   paid: false,
   paymentId: null,
+  statusId: 1,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -48,6 +49,7 @@ export const mockEntries: Entry[] = [
     additionalEmails: [],
     paymentId: null,
     paid: false,
+    statusId: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
   },
@@ -62,6 +64,7 @@ export const mockEntries: Entry[] = [
     additionalEmails: ['michael.motte@email.com'],
     paymentId: 'abc123',
     paid: true,
+    statusId: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
   },
@@ -78,6 +81,7 @@ export const mockUpdatedEntry: Entry = {
   additionalEmails: [],
   paymentId: null,
   paid: false,
+  statusId: 1,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -92,6 +96,7 @@ export const newEntry: CreateEntryDto = {
   additionalEmails: [],
   paid: false,
   paymentId: null,
+  statusId: 1,
 };
 
 export const updateEntry: UpdateEntryDto = {
@@ -104,4 +109,5 @@ export const updateEntry: UpdateEntryDto = {
   additionalEmails: [],
   paid: false,
   paymentId: null,
+  statusId: 1,
 };
