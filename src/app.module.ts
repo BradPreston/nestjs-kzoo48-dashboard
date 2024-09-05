@@ -7,6 +7,7 @@ import { VolunteersModule } from './volunteers/volunteers.module';
 import { PaymentsModule } from './payments/payment.module';
 import { CategoriesModule } from './categories/categories.module';
 import { StatusesModule } from './statuses/statuses.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StatusesModule } from './statuses/statuses.module';
     PaymentsModule,
     CategoriesModule,
     StatusesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
