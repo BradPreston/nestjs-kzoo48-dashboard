@@ -88,6 +88,16 @@ async function main() {
     },
   });
 
+  const user1 = await prisma.user.upsert({
+    where: { email: 'test@email.com' },
+    update: {},
+    create: {
+      email: 'test@email.com',
+      password: process.env.TEST_USER_PASSWORD,
+      statusId: 1,
+    },
+  });
+
   console.log('Categories');
   console.log('------------------------------------------');
   console.log({ category1, category2 });
@@ -102,6 +112,9 @@ async function main() {
   console.log('Statuses');
   console.log('------------------------------------------');
   console.log({ status1, status2, status3 });
+  console.log('Users');
+  console.log('------------------------------------------');
+  console.log({ user1 });
 }
 
 // execute the main function
