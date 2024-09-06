@@ -27,10 +27,8 @@ RUN npm run build
 FROM base AS dev
 # expose the port to access the app
 EXPOSE 3000
-# make the entrypoint script executable
-RUN chmod +x /usr/src/app/entrypoint-dev.sh
-# execute the entrypoint script
-ENTRYPOINT [ "sh", "/usr/src/app/entrypoint-dev.sh" ]
+# run the start dev command
+CMD [ "npm", "run", "start:dev" ]
 
 # ======== PRODUCTION========
 FROM node:18 AS production
