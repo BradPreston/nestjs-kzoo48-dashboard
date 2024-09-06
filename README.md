@@ -2,7 +2,7 @@
 
 ## Welcome
 
-This application is used to run the backend of the [Kazoo48 Film Festival]([Home | Kazoo48](https://kazoo48.com/)) admin dashboard. This app is built using [TypeScript]([TypeScript: JavaScript With Syntax For Types. (typescriptlang.org)](https://www.typescriptlang.org/)), [NestJS]([NestJS - A progressive Node.js framework](https://nestjs.com/), [Prisma]([Prisma | Simplify working and interacting with databases](https://www.prisma.io/)), [PostgreSQL]([PostgreSQL: The world's most advanced open source database](https://www.postgresql.org/)), and [Docker]([Docker: Accelerated Container Application Development](https://www.docker.com/)).
+This application is used to run the backend of the [Kazoo48 Film Festival](https://kazoo48.com/) admin dashboard. This app is built using [TypeScript](https://www.typescriptlang.org/), [NestJS](https://nestjs.com/), [Prisma](https://www.prisma.io/), [PostgreSQL](https://www.postgresql.org/), and [Docker](https://www.docker.com/).
 
 ## Getting started
 
