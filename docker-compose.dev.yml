@@ -29,6 +29,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_PORT: ${DB_PORT}
       DATABASE_URL: ${DATABASE_URL}
+      TEST_USER_PASSWORD: ${TEST_USER_PASSWORD}
     volumes:
       - ./src:/usr/src/app/src
     depends_on:
