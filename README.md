@@ -22,25 +22,21 @@ Step 2) Run the Docker container
 make dev-up
 ```
 
-Step 3) Generate the Prisma Client
+**_note:_** before running the following optional steps, replace the container IDs in the Makefile with your container ID otherwise, these steps will not work.
 
-```
-make dev-generate
-```
-
-Step 4) Run the migrations
+Step 3) (_optional_) Run the migrations
 
 ```
 make dev-migrate
 ```
 
-Step 5) (_optional_) Seed the database
+Step 4) (_optional_) Seed the database
 
 ```
 make dev-seed
 ```
 
-After running the steps 3-5, you will not need to run them again to run on your machine later. Simply run `make dev-up` to run the app the next time you want to start the container.
+After running the steps 1, 3 & 4, you will not need to run them again to run on your machine later. Simply run `make dev-up` to run the app the next time you want to start the container.
 
 To stop running the container, run
 
