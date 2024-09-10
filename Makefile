@@ -10,8 +10,8 @@ dev-down:
 
 # prisma commands
 dev-generate:
-	docker exec -it nestjs-kzoo48-dashboard-nestjs_api-1 npx prisma generate
+	docker exec -it 34298a313e43b2ea98aa357058a5a768bfc5c7bb3bc683e7b0626c0ababcf9c2 npx prisma generate
 dev-migrate:
-	docker exec -it nestjs-kzoo48-dashboard-nestjs_api-1 npx prisma migrate dev
+	docker exec -it 34298a313e43b2ea98aa357058a5a768bfc5c7bb3bc683e7b0626c0ababcf9c2 npx prisma migrate dev
 dev-seed:
-	docker exec -it nestjs-kzoo48-dashboard-nestjs_api-1 npx prisma db seed
+	docker exec -it 34298a313e43b2ea98aa357058a5a768bfc5c7bb3bc683e7b0626c0ababcf9c2 npx prisma db seed
