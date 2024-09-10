@@ -8,6 +8,8 @@ COPY package*.json ./
 RUN npm install
 # copy the entire project (except for files in dockerignore) into /usr/src/app in the container
 COPY . .
+# Generate the Prisma schema in the base step, prevents needing to run it later
+RUN npx prisma generate
 
 # ======== LINT ========
 FROM base AS linter
