@@ -1,12 +1,12 @@
 # docker commands
 dev-up-build:
-	sudo docker compose --env-file ./.env.development.local -f docker-compose.dev.yml up --build --no-cache -d
+	docker compose --env-file ./.env.development.local -f docker-compose.dev.yml up --build --no-cache -d
 dev-build:
-	sudo docker compose --env-file ./.env.development.local -f docker-compose.dev.yml build --no-cache
+	docker compose --env-file ./.env.development.local -f docker-compose.dev.yml build --no-cache
 dev-up:
-	sudo docker compose --env-file ./.env.development.local -f docker-compose.dev.yml up -d
+	docker compose --env-file ./.env.development.local -f docker-compose.dev.yml up -d
 dev-down:
-	sudo docker compose --env-file ./.env.development.local -f docker-compose.dev.yml down
+	docker compose --env-file ./.env.development.local -f docker-compose.dev.yml down
 
 # prisma commands
 dev-generate:
