@@ -22,7 +22,7 @@ Step 2) Run the Docker container
 make dev-up
 ```
 
-**_note:_** before running the following optional steps, replace the container IDs in the Makefile with your container ID. Otherwise, these steps will not work.
+**_note:_** before running the following optional steps, add the CONTAINER_ID to your .env file with the value of the nestjs_api container ID. Otherwise, these steps will not work.
 
 Step 3) (_optional_) Run the migrations
 
