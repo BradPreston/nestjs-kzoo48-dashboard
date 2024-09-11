@@ -1,3 +1,6 @@
+# Include the .env file to use the CONTAINER_ID variable
+include .env
+
 # docker commands
 dev-up-build:
 	docker compose --env-file ./.env.development.local -f docker-compose.dev.yml up --build --no-cache -d
@@ -10,8 +13,8 @@ dev-down:
 
 # prisma commands
 dev-generate:
-	docker exec -it 34298a313e43b2ea98aa357058a5a768bfc5c7bb3bc683e7b0626c0ababcf9c2 npx prisma generate
+	docker exec -it ${CONTAINER_ID} npx prisma generate
 dev-migrate:
-	docker exec -it 34298a313e43b2ea98aa357058a5a768bfc5c7bb3bc683e7b0626c0ababcf9c2 npx prisma migrate dev
+	docker exec -it ${CONTAINER_ID} npx prisma migrate dev
 dev-seed:
-	docker exec -it 34298a313e43b2ea98aa357058a5a768bfc5c7bb3bc683e7b0626c0ababcf9c2 npx prisma db seed
+	docker exec -it ${CONTAINER_ID} npx prisma db seed
